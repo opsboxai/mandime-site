@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <main className="site-main">{children}</main>
         <footer className="site-footer">
           <span>&copy; {new Date().getFullYear()} Mandime</span>
-          <span>gear &middot; tech &middot; cars &middot; watches &middot; style</span>
+          <span>gear &middot; tech &middot; cars &middot; health &middot; style</span>
         </footer>
       </body>
     </html>
