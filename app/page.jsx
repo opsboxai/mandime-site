@@ -19,21 +19,22 @@ export default function Home() {
     <div className="post-grid">
       {posts.map((p) => (
         <Link key={p.slug} href={`/posts/${p.slug}`} className="post-card">
-          {p.frontmatter.cover && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="post-card-cover" src={p.frontmatter.cover} alt={p.frontmatter.alt || ''} />
+          {p.frontmatter.cover ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.frontmatter.cover} alt={p.frontmatter.alt || ''} />
+              <div className="post-card-overlay">
+                <h2>{p.frontmatter.title}</h2>
+              </div>
+            </>
+          ) : (
+            <div className="post-card-no-image">
+              <div className="post-card-inner">
+                {p.frontmatter.source && <span className="kicker">{p.frontmatter.source}</span>}
+                <h2>{p.frontmatter.title}</h2>
+              </div>
+            </div>
           )}
-          <div className="post-card-body">
-            {p.frontmatter.source && <span className="kicker">{p.frontmatter.source}</span>}
-            <h2>{p.frontmatter.title}</h2>
-            {p.frontmatter.date && (
-              <time className="post-date">
-                {new Date(p.frontmatter.date).toLocaleDateString('en-US', {
-                  year: 'numeric', month: 'short', day: 'numeric',
-                })}
-              </time>
-            )}
-          </div>
         </Link>
       ))}
     </div>

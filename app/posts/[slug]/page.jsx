@@ -25,33 +25,60 @@ export function generateMetadata({ params }) {
   }
 }
 
+function extractYouTubeId(url) {
+  if (!url) return null
+  const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/)
+  return m ? m[1] : null
+}
+
 export default function PostPage({ params }) {
   const post = getPost(params.slug)
   if (!post) notFound()
   const { frontmatter, content } = post
 
+  const isVideo = frontmatter.media_type === 'video'
+  const ytId = isVideo ? extractYouTubeId(frontmatter.source_url) : null
+
   return (
-    <article className="post">
-      <Link href="/" className="back-link">← all posts</Link>
+    <article className="post-page">
+      <Link href="/" className="post-back">&larr; Back</Link>
+
       {frontmatter.source && <span className="kicker">{frontmatter.source}</span>}
       <h1>{frontmatter.title}</h1>
-      {frontmatter.date && (
-        <time className="post-date">
-          {new Date(frontmatter.date).toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric',
-          })}
-        </time>
-      )}
-      {frontmatter.cover && (
+
+      <div className="post-meta">
+        {frontmatter.date && (
+          <time className="post-date">
+            {new Date(frontmatter.date + 'T12:00:00').toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            })}
+          </time>
+        )}
+      </div>
+
+      {ytId ? (
+        <div className="video-embed">
+          <iframe
+            src={`https://www.youtube.com/embed/${ytId}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={frontmatter.title}
+          />
+        </div>
+      ) : frontmatter.cover ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img className="post-cover" src={frontmatter.cover} alt={frontmatter.alt || ''} />
-      )}
+      ) : null}
+
       <div className="post-body">
         <MDXRemote source={content} />
       </div>
+
       {frontmatter.source_url && (
         <p className="source-attribution">
-          Originally via <a href={frontmatter.source_url} target="_blank" rel="noreferrer">the source ↗</a>
+          Source: <a href={frontmatter.source_url} target="_blank" rel="noreferrer">
+            {isVideo ? 'Watch on YouTube' : 'View original'} &rarr;
+          </a>
         </p>
       )}
     </article>
