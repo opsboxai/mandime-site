@@ -29,7 +29,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 40px;
+  padding: 8px 40px;
   position: sticky;
   top: 0;
   background: rgba(255, 255, 255, 0.92);
