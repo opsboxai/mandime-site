@@ -27,7 +27,10 @@ export default function RootLayout({ children }) {
         <main className="site-main">{children}</main>
         <footer className="site-footer">
           <span>&copy; {new Date().getFullYear()} Mandime</span>
-          <span>gear &middot; tech &middot; cars &middot; gaming &middot; health &middot; style</span>
+          <span className="footer-links">
+            <a href="/terms">Terms</a>
+            <a href="/privacy">Privacy</a>
+          </span>
         </footer>
       </body>
     </html>
