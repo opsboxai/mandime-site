@@ -49,7 +49,11 @@ export default function PostPage({ params }) {
       <div className="post-meta">
         {frontmatter.date && (
           <time className="post-date">
-            {new Date(frontmatter.date + 'T12:00:00').toLocaleDateString('en-US', {
+            {new Date(
+              frontmatter.date.includes('T')
+                ? frontmatter.date          // full datetime — use as-is
+                : frontmatter.date + 'T12:00:00'  // date-only — add noon
+            ).toLocaleDateString('en-US', {
               year: 'numeric', month: 'long', day: 'numeric',
             })}
           </time>
