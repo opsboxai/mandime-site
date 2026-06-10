@@ -401,6 +401,30 @@ a { color: inherit; text-decoration: none; }
 
 .contact-success button:hover { border-color: var(--text); }
 
+/* ---------- About ---------- */
+.about-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+.about-page h1 {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.about-body {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.about-body p { margin: 0 0 20px; }
+.about-body a { color: var(--text); text-decoration: underline; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .post-grid { grid-template-columns: repeat(2, 1fr); }
@@ -410,6 +434,8 @@ a { color: inherit; text-decoration: none; }
   .post-page h1 { font-size: 32px; }
   .contact-page { padding: 40px 24px 80px; }
   .contact-page h1 { font-size: 32px; }
+  .about-page { padding: 40px 24px 80px; }
+  .about-page h1 { font-size: 32px; }
 }
 
 @media (max-width: 600px) {
@@ -420,4 +446,5 @@ a { color: inherit; text-decoration: none; }
   .post-card-overlay { opacity: 1; }
   .contact-page h1 { font-size: 28px; }
   .contact-submit { width: 100%; }
+  .about-page h1 { font-size: 28px; }
 }

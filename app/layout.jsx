@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
           </a>
           <nav className="site-nav">
             <a href="/">Home</a>
+            <a href="/about">About</a>
             <a href="/contact">Contact</a>
           </nav>
         </header>

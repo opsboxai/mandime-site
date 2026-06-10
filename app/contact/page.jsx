@@ -70,7 +70,7 @@ export default function ContactPage() {
     <div className="contact-page">
       <h1>Get in Touch</h1>
       <p className="contact-subtitle">
-        Have a question, collaboration idea, or just want to say what's up? Drop us a line.
+        Have a question, collaboration idea, or interested in advertising with us? Drop us a line.
       </p>
 
       {status === 'sent' ? (
