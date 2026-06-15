@@ -13,13 +13,27 @@ function extractYouTubeId(url) {
 
 function ReelSlide({ post, isActive }) {
   const iframeRef = useRef(null)
-  const [iframeReady, setIframeReady] = useState(false)
+  const [playerReady, setPlayerReady] = useState(false)
   const fm = post.frontmatter
   const isVideo = fm.media_type === 'video'
   const ytId = isVideo ? extractYouTubeId(fm.source_url) : null
 
   useEffect(() => {
-    setIframeReady(false)
+    if (!ytId) return
+    const handler = (e) => {
+      if (!iframeRef.current || e.source !== iframeRef.current.contentWindow) return
+      try {
+        const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data
+        if (data.event === 'initialDelivery' || data.event === 'onReady') {
+          iframeRef.current.contentWindow?.postMessage(JSON.stringify({ event: 'listening' }), '*')
+        }
+        if (data.event === 'onStateChange' && data.info === 1) {
+          setPlayerReady(true)
+        }
+      } catch (_) {}
+    }
+    window.addEventListener('message', handler)
+    return () => window.removeEventListener('message', handler)
   }, [ytId])
 
   useEffect(() => {
@@ -38,7 +52,12 @@ function ReelSlide({ post, isActive }) {
         )
       }
     } catch (_) {}
-  }, [isActive, ytId])
+    let timer
+    if (isActive && !playerReady) {
+      timer = setTimeout(() => setPlayerReady(true), 1500)
+    }
+    return () => clearTimeout(timer)
+  }, [isActive, ytId, playerReady])
 
   const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null
 
@@ -51,17 +70,19 @@ function ReelSlide({ post, isActive }) {
             src={ytThumb}
             alt=""
             className="reel-yt-poster"
-            style={{ opacity: iframeReady ? 0 : 1 }}
+            style={{ opacity: playerReady ? 0 : 1 }}
           />
           <iframe
             ref={iframeRef}
-            src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=${isActive ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
+            src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={fm.title}
             loading="lazy"
-            onLoad={() => setIframeReady(true)}
-            style={{ opacity: iframeReady ? 1 : 0 }}
+            onLoad={() => {
+              iframeRef.current?.contentWindow?.postMessage(JSON.stringify({ event: 'listening' }), '*')
+            }}
+            style={{ opacity: playerReady ? 1 : 0 }}
           />
         </div>
       ) : fm.cover ? (
