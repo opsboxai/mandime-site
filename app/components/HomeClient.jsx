@@ -61,11 +61,9 @@ export default function HomeClient({ posts }) {
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.frontmatter.cover} alt={p.frontmatter.alt || ''} />
-                {!p.frontmatter.has_overlay && (
-                  <div className="post-card-overlay">
-                    <h2>{p.frontmatter.title}</h2>
-                  </div>
-                )}
+                <div className="post-card-overlay">
+                  <h2>{p.frontmatter.title}</h2>
+                </div>
               </>
             ) : (
               <div className="post-card-no-image">

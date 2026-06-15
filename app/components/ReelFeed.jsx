@@ -61,13 +61,9 @@ function ReelSlide({ post, isActive }) {
 
       <div className="reel-info">
         <div className="reel-info-inner">
-          {!fm.has_overlay && (
-            <>
-              {fm.source && <span className="reel-source">{fm.source}</span>}
-              <h2 className="reel-title">{fm.title}</h2>
-              {fm.excerpt && <p className="reel-excerpt">{fm.excerpt}</p>}
-            </>
-          )}
+          {fm.source && <span className="reel-source">{fm.source}</span>}
+          <h2 className="reel-title">{fm.title}</h2>
+          {fm.excerpt && <p className="reel-excerpt">{fm.excerpt}</p>}
           <Link href={`/posts/${post.slug}`} className="reel-read-more">
             Read more &rarr;
           </Link>
