@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 
+const RENDER_WINDOW = 2
+
 function extractYouTubeId(url) {
   if (!url) return null
   const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/)
@@ -11,14 +13,12 @@ function extractYouTubeId(url) {
 
 function ReelSlide({ post, isActive }) {
   const iframeRef = useRef(null)
-  const playerRef = useRef(null)
   const fm = post.frontmatter
   const isVideo = fm.media_type === 'video'
   const ytId = isVideo ? extractYouTubeId(fm.source_url) : null
 
   useEffect(() => {
     if (!ytId || !iframeRef.current) return
-    // Use YouTube IFrame API postMessage to play/pause
     const iframe = iframeRef.current
     try {
       if (isActive) {
@@ -32,7 +32,7 @@ function ReelSlide({ post, isActive }) {
           '*'
         )
       }
-    } catch (_) { /* cross-origin errors are expected on first load */ }
+    } catch (_) {}
   }, [isActive, ytId])
 
   return (
@@ -45,12 +45,13 @@ function ReelSlide({ post, isActive }) {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={fm.title}
+            loading="lazy"
           />
         </div>
       ) : fm.cover ? (
         <div className="reel-image-wrap">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={fm.cover} alt={fm.alt || ''} />
+          <img src={fm.cover} alt={fm.alt || ''} loading="lazy" />
         </div>
       ) : (
         <div className="reel-placeholder">
@@ -70,6 +71,10 @@ function ReelSlide({ post, isActive }) {
       </div>
     </div>
   )
+}
+
+function ReelPlaceholder() {
+  return <div className="reel-slide" />
 }
 
 export default function ReelFeed({ posts }) {
@@ -98,9 +103,14 @@ export default function ReelFeed({ posts }) {
         <span className="reel-counter">{activeIndex + 1} / {posts.length}</span>
       </div>
       <div className="reel-container" ref={containerRef}>
-        {posts.map((p, i) => (
-          <ReelSlide key={p.slug} post={p} isActive={i === activeIndex} />
-        ))}
+        {posts.map((p, i) => {
+          const inWindow = Math.abs(i - activeIndex) <= RENDER_WINDOW
+          return inWindow ? (
+            <ReelSlide key={p.slug} post={p} isActive={i === activeIndex} />
+          ) : (
+            <ReelPlaceholder key={p.slug} />
+          )
+        })}
       </div>
     </>
   )
