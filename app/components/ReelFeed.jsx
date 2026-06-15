@@ -51,7 +51,7 @@ function ReelSlide({ post, isActive }) {
       ) : fm.cover ? (
         <div className="reel-image-wrap">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={fm.cover} alt={fm.alt || ''} loading="lazy" />
+          <img src={`${fm.cover}?v=2`} alt={fm.alt || ''} loading="lazy" />
         </div>
       ) : (
         <div className="reel-placeholder">
