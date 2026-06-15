@@ -13,9 +13,14 @@ function extractYouTubeId(url) {
 
 function ReelSlide({ post, isActive }) {
   const iframeRef = useRef(null)
+  const [iframeReady, setIframeReady] = useState(false)
   const fm = post.frontmatter
   const isVideo = fm.media_type === 'video'
   const ytId = isVideo ? extractYouTubeId(fm.source_url) : null
+
+  useEffect(() => {
+    setIframeReady(false)
+  }, [ytId])
 
   useEffect(() => {
     if (!ytId || !iframeRef.current) return
@@ -35,10 +40,19 @@ function ReelSlide({ post, isActive }) {
     } catch (_) {}
   }, [isActive, ytId])
 
+  const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null
+
   return (
     <div className="reel-slide">
       {ytId ? (
         <div className="reel-video-wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={ytThumb}
+            alt=""
+            className="reel-yt-poster"
+            style={{ opacity: iframeReady ? 0 : 1 }}
+          />
           <iframe
             ref={iframeRef}
             src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=${isActive ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
@@ -46,6 +60,8 @@ function ReelSlide({ post, isActive }) {
             allowFullScreen
             title={fm.title}
             loading="lazy"
+            onLoad={() => setIframeReady(true)}
+            style={{ opacity: iframeReady ? 1 : 0 }}
           />
         </div>
       ) : fm.cover ? (
