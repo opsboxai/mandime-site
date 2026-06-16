@@ -18,6 +18,13 @@ function ReelSlide({ post, isActive }) {
   const isVideo = fm.media_type === 'video'
   const ytId = isVideo ? extractYouTubeId(fm.source_url) : null
 
+  // The iframe's src carries autoplay=isActive, so it reloads when this slide
+  // becomes active/inactive. Re-arm the poster on each (re)load so the brief
+  // YouTube chrome during loading stays hidden.
+  useEffect(() => {
+    setPlayerReady(false)
+  }, [ytId, isActive])
+
   useEffect(() => {
     if (!ytId) return
     const handler = (e) => {
@@ -36,28 +43,22 @@ function ReelSlide({ post, isActive }) {
     return () => window.removeEventListener('message', handler)
   }, [ytId])
 
+  // Nudge playback alongside the URL autoplay (belt-and-suspenders) and pause
+  // inactive slides. Reveal after a fallback in case the player never reports
+  // a "playing" state (cross-origin quirk) so it's never stuck on the poster.
   useEffect(() => {
     if (!ytId || !iframeRef.current) return
     const iframe = iframeRef.current
     try {
-      if (isActive) {
-        iframe.contentWindow?.postMessage(
-          JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
-          '*'
-        )
-      } else {
-        iframe.contentWindow?.postMessage(
-          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
-          '*'
-        )
-      }
+      iframe.contentWindow?.postMessage(
+        JSON.stringify({ event: 'command', func: isActive ? 'playVideo' : 'pauseVideo', args: [] }),
+        '*'
+      )
     } catch (_) {}
-    let timer
-    if (isActive && !playerReady) {
-      timer = setTimeout(() => setPlayerReady(true), 1500)
-    }
+    if (!isActive) return
+    const timer = setTimeout(() => setPlayerReady(true), 1500)
     return () => clearTimeout(timer)
-  }, [isActive, ytId, playerReady])
+  }, [isActive, ytId])
 
   const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null
 
@@ -74,7 +75,7 @@ function ReelSlide({ post, isActive }) {
           />
           <iframe
             ref={iframeRef}
-            src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=0&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
+            src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=${isActive ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={fm.title}
