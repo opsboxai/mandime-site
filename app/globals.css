@@ -89,6 +89,88 @@ a { color: inherit; text-decoration: none; }
 }
 .footer-links a:hover { color: var(--text); }
 
+/* Topic nav in the footer (site-wide internal links) */
+.footer-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  order: -1;
+  flex-basis: 100%;
+  margin-bottom: 8px;
+}
+.footer-topics a {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+.footer-topics a:hover { color: var(--text); }
+
+/* Topic chips + related posts on the article page */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 8px;
+}
+.post-tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  transition: color 0.15s, border-color 0.15s;
+}
+.post-tag:hover { color: var(--text); border-color: var(--text-muted); }
+
+.related-posts {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.related-posts h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.related-posts ul { list-style: none; padding: 0; margin: 0; }
+.related-posts li { margin-bottom: 10px; }
+.related-posts a {
+  font-size: 16px;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+
+/* Category hub page */
+.tag-page { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+.tag-header { margin-bottom: 28px; }
+.tag-header h1 { margin: 12px 0 8px; }
+.tag-desc { color: var(--text-muted); font-size: 16px; max-width: 640px; }
+.tag-count {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.tag-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.tag-nav a {
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.tag-nav a:hover { color: var(--text); }
+
 /* ---------- Homepage grid ---------- */
 .post-grid {
   display: grid;
