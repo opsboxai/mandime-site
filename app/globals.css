@@ -620,6 +620,33 @@ a { color: inherit; text-decoration: none; }
 .about-body p { margin: 0 0 20px; }
 .about-body a { color: var(--text); text-decoration: underline; }
 
+.about-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.about-kicker::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--text);
+  flex-shrink: 0;
+}
+
+.about-sig {
+  margin-top: 36px !important;
+  font-style: italic;
+  color: var(--text);
+  font-size: 15px;
+}
+
 /* ---------- View toggle button ---------- */
 .view-toggle {
   position: fixed;
