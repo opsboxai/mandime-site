@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'About — Mandime',
   description: "The guy behind Mandime, why it exists, and what you can expect to find here.",
+  alternates: { canonical: '/about' },
 }
 
 export default function AboutPage() {
