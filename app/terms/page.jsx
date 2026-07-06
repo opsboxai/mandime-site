@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Terms of Service — Mandime',
   description: 'Terms of Service for mandime.com',
+  alternates: { canonical: '/terms' },
 }
 
 export default function Terms() {
