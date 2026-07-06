@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Privacy Policy — Mandime',
   description: 'Privacy Policy for mandime.com',
+  alternates: { canonical: '/privacy' },
 }
 
 export default function Privacy() {
