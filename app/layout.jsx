@@ -48,17 +48,34 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
+        {/* Consent Mode v2 — must run before GA4 loads.
+            Defaults to denied; upgrades to granted for users who haven't
+            set GPC and haven't opted out via the privacy page. */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 300
+          });
+          (function() {
+            var gpc = typeof navigator !== 'undefined' && navigator.globalPrivacyControl === true;
+            var optout = false;
+            try { optout = localStorage.getItem('mandime_analytics_optout') === '1'; } catch(e) {}
+            if (!gpc && !optout) {
+              gtag('consent', 'update', { analytics_storage: 'granted' });
+            }
+          })();
+        `}} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-T7587FSGNS"
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-T7587FSGNS');
-          `}
+          {`gtag('js', new Date()); gtag('config', 'G-T7587FSGNS', { anonymize_ip: true });`}
         </Script>
       </head>
       <body>
@@ -85,6 +102,7 @@ export default function RootLayout({ children }) {
           <span className="footer-links">
             <a href="/terms">Terms</a>
             <a href="/privacy">Privacy</a>
+            <a href="/privacy#opt-out">Do Not Sell or Share My Personal Information</a>
           </span>
         </footer>
       </body>
