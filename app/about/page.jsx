@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'About — Mandime',
+  title: 'About',
   description: "The guy behind Mandime, why it exists, and what you can expect to find here.",
   alternates: { canonical: '/about' },
 }

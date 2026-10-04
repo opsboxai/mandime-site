@@ -23,6 +23,7 @@ export default function HomeClient({ posts }) {
   if (mode === 'reel' && isMobile) {
     return (
       <>
+        <h1 className="sr-only">Mandime: men's lifestyle stories on gear, tech, cars, gaming, health and style</h1>
         <button
           className="view-toggle"
           onClick={() => setMode('grid')}
@@ -42,6 +43,7 @@ export default function HomeClient({ posts }) {
 
   return (
     <>
+      <h1 className="sr-only">Mandime: men's lifestyle stories on gear, tech, cars, gaming, health and style</h1>
       {isMobile && (
         <button
           className="view-toggle view-toggle-grid"

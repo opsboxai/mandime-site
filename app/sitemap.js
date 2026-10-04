@@ -7,7 +7,7 @@ import { SITE_URL } from '@/lib/site'
 export default function sitemap() {
   const now = new Date()
 
-  const staticPages = ['', '/about', '/contact', '/privacy', '/terms'].map((p) => ({
+  const staticPages = ['', '/about', '/contact', '/privacy', '/terms', '/accessibility'].map((p) => ({
     url: `${SITE_URL}${p}`,
     lastModified: now,
     changeFrequency: p === '' ? 'daily' : 'monthly',

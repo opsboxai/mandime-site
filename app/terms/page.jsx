@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Terms of Service — Mandime',
+  title: 'Terms of Service',
   description: 'Terms of Service for mandime.com',
   alternates: { canonical: '/terms' },
 }
@@ -12,7 +12,7 @@ export default function Terms() {
     <div className="post-page">
       <a href="/" className="post-back">← Back</a>
       <h1>Terms of Service</h1>
-      <p className="post-date">Last updated: July 15, 2026</p>
+      <p className="post-date">Last updated: October 4, 2026</p>
 
       <div className="post-body" style={{ marginTop: 40 }}>
         <p>
@@ -22,14 +22,22 @@ export default function Terms() {
         </p>
         <p>
           <strong>
-            PLEASE READ SECTION 10 (DISPUTE RESOLUTION; ARBITRATION; CLASS ACTION WAIVER)
+            PLEASE READ SECTION 13 (DISPUTE RESOLUTION; ARBITRATION; CLASS ACTION WAIVER)
             CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS, INCLUDING YOUR RIGHT TO FILE A LAWSUIT
             IN COURT AND YOUR RIGHT TO A JURY TRIAL.
           </strong>
         </p>
 
-        {/* ── 1. Use of the Site ── */}
-        <h2 style={h2}>1. Use of the Site</h2>
+        {/* ── 1. Eligibility ── */}
+        <h2 style={h2}>1. Eligibility</h2>
+        <p>
+          The Site is written for adult readers. You must be at least 13 years old to use it. If you
+          are under the age of majority where you live, you may use the Site only with the permission
+          of a parent or legal guardian who agrees to these Terms on your behalf.
+        </p>
+
+        {/* ── 2. Use of the Site ── */}
+        <h2 style={h2}>2. Use of the Site</h2>
         <p>
           You may use the Site for personal, non-commercial purposes only. You agree not to:
         </p>
@@ -45,8 +53,8 @@ export default function Terms() {
           or discontinuation.
         </p>
 
-        {/* ── 2. Content & Intellectual Property ── */}
-        <h2 style={h2}>2. Content & Intellectual Property</h2>
+        {/* ── 3. Content & Intellectual Property ── */}
+        <h2 style={h2}>3. Content & Intellectual Property</h2>
         <p>
           All original content on the Site — including editorial commentary, site design,
           logos, and compilations — is owned by or licensed to Mandime and protected by
@@ -57,8 +65,37 @@ export default function Terms() {
           intellectual property except as expressly stated.
         </p>
 
-        {/* ── 3. User-Generated Content ── */}
-        <h2 style={h2}>3. User-Generated Content</h2>
+        {/* ── 4. Copyright & removal requests ── */}
+        <h2 style={h2}>4. Creator Requests and Copyright Complaints</h2>
+        <p>
+          Mandime features and links to work made by other people, always with credit and a link to
+          the original. We respect creators' rights and would rather remove something than keep it
+          against its creator's wishes.
+        </p>
+        <p>
+          <strong>Creator requests.</strong> If you made something that appears on the Site and you
+          want it removed, credited differently, or linked to a different page, email{' '}
+          <a href="mailto:info@mandime.com?subject=Removal%20Request">info@mandime.com</a> with the
+          subject "Removal Request" and the link to our post. You do not need to send a formal legal
+          notice. We act on reasonable requests from creators and rights holders promptly, normally
+          within a few business days.
+        </p>
+        <p>
+          <strong>Copyright notices.</strong> If you believe material on the Site infringes a
+          copyright you own or control, you may also send a written notice to our copyright agent at{' '}
+          <a href="mailto:info@mandime.com?subject=Copyright%20Notice">info@mandime.com</a> (subject
+          "Copyright Notice"). To help us act quickly, please include: (a) your physical or electronic
+          signature; (b) a description of the copyrighted work; (c) the address (URL) of the material
+          on the Site; (d) your name, postal address, telephone number, and email address; (e) a
+          statement that you have a good-faith belief that the use is not authorized by the copyright
+          owner, its agent, or the law; and (f) a statement that the information in your notice is
+          accurate and, under penalty of perjury, that you are the owner or are authorized to act on
+          the owner's behalf (see 17 U.S.C. § 512(c)(3)). Knowingly false claims can create
+          liability for the sender.
+        </p>
+
+        {/* ── 5. User-Generated Content ── */}
+        <h2 style={h2}>5. User-Generated Content</h2>
         <p>
           If you submit any content to us — comments, messages, feedback, or suggestions —
           you grant Mandime a non-exclusive, worldwide, royalty-free, perpetual, irrevocable
@@ -67,8 +104,8 @@ export default function Terms() {
           it does not infringe the rights of any third party.
         </p>
 
-        {/* ── 4. Third-Party Links & Content ── */}
-        <h2 style={h2}>4. Third-Party Links & Content</h2>
+        {/* ── 6. Third-Party Links & Content ── */}
+        <h2 style={h2}>6. Third-Party Links & Content</h2>
         <p>
           The Site links to and features third-party websites, videos, articles, and other
           content. We do not endorse, control, or assume responsibility for any third-party
@@ -77,8 +114,18 @@ export default function Terms() {
           for the accuracy, legality, or appropriateness of any third-party content.
         </p>
 
-        {/* ── 5. Privacy ── */}
-        <h2 style={h2}>5. Privacy</h2>
+        {/* ── 7. Advertising ── */}
+        <h2 style={h2}>7. Advertising, Sponsorships, and Affiliate Links</h2>
+        <p>
+          The Site does not currently show advertising or use affiliate links, and nobody pays us to
+          feature their content. If that changes, any post that is sponsored, features a product we
+          received for free, or contains links that earn us a commission will be clearly labeled on
+          that post (for example, "Sponsored" or "Affiliate link"), consistent with the U.S. Federal
+          Trade Commission's Endorsement Guides. Our editorial choices are our own.
+        </p>
+
+        {/* ── 8. Privacy ── */}
+        <h2 style={h2}>8. Privacy</h2>
         <p>
           Your use of the Site is also governed by our{' '}
           <a href="/privacy">Privacy Policy</a>, which is incorporated into these Terms by
@@ -86,8 +133,8 @@ export default function Terms() {
           Privacy Policy.
         </p>
 
-        {/* ── 6. Disclaimer of Warranties ── */}
-        <h2 style={h2}>6. Disclaimer of Warranties</h2>
+        {/* ── 9. Disclaimer of Warranties ── */}
+        <h2 style={h2}>9. Disclaimer of Warranties</h2>
         <p>
           THE SITE AND ALL CONTENT ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
           WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY
@@ -98,8 +145,8 @@ export default function Terms() {
           VIRUSES OR OTHER HARMFUL COMPONENTS.
         </p>
 
-        {/* ── 7. Limitation of Liability ── */}
-        <h2 style={h2}>7. Limitation of Liability</h2>
+        {/* ── 10. Limitation of Liability ── */}
+        <h2 style={h2}>10. Limitation of Liability</h2>
         <p>
           TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, MANDIME AND ITS OWNERS,
           OPERATORS, AFFILIATES, AND CONTRIBUTORS SHALL NOT BE LIABLE FOR ANY INDIRECT,
@@ -114,8 +161,8 @@ export default function Terms() {
           PERMITTED BY LAW.
         </p>
 
-        {/* ── 8. Indemnification ── */}
-        <h2 style={h2}>8. Indemnification</h2>
+        {/* ── 11. Indemnification ── */}
+        <h2 style={h2}>11. Indemnification</h2>
         <p>
           You agree to indemnify, defend, and hold harmless Mandime and its owners,
           operators, affiliates, and contributors from and against any claims, liabilities,
@@ -124,28 +171,28 @@ export default function Terms() {
           Terms, or your violation of any rights of a third party.
         </p>
 
-        {/* ── 9. Governing Law ── */}
-        <h2 style={h2}>9. Governing Law</h2>
+        {/* ── 12. Governing Law ── */}
+        <h2 style={h2}>12. Governing Law</h2>
         <p>
           These Terms are governed by the laws of the State of California, without regard
           to its conflict of law principles, except that the Federal Arbitration Act (9 U.S.C.
-          § 1 et seq.) governs the interpretation and enforcement of Section 10 below.
+          § 1 et seq.) governs the interpretation and enforcement of Section 13 below.
         </p>
 
-        {/* ── 10. Dispute Resolution ── */}
-        <h2 style={h2}>10. Dispute Resolution; Binding Arbitration; Class Action Waiver</h2>
+        {/* ── 13. Dispute Resolution ── */}
+        <h2 style={h2}>13. Dispute Resolution; Binding Arbitration; Class Action Waiver</h2>
 
         <p>
-          <strong>10.1 Informal Resolution.</strong> Before initiating any formal dispute
+          <strong>13.1 Informal Resolution.</strong> Before initiating any formal dispute
           proceeding, you agree to contact us at{' '}
-          <a href="mailto:contact@mandime.com">contact@mandime.com</a> and give us 30 days
+          <a href="mailto:info@mandime.com">info@mandime.com</a> and give us 30 days
           to resolve the dispute informally. Most concerns can be resolved quickly this way.
           This informal dispute resolution period is a prerequisite to arbitration or any
           other legal proceeding.
         </p>
 
         <p>
-          <strong>10.2 Binding Arbitration.</strong> If we cannot resolve a dispute
+          <strong>13.2 Binding Arbitration.</strong> If we cannot resolve a dispute
           informally within 30 days, <strong>you and Mandime agree to resolve any and all
           disputes, claims, or controversies arising out of or relating to these Terms or
           your use of the Site — including any claims arising under any statute, regulation,
@@ -158,7 +205,7 @@ export default function Terms() {
           Arbitration shall be administered by JAMS pursuant to its Streamlined Arbitration
           Rules and Procedures (for claims under $250,000) or its Comprehensive Arbitration
           Rules and Procedures (for claims $250,000 or more), available at{' '}
-          <a href="https://www.jamsadr.com" target="_blank" rel="noopener noreferrer">jamsadr.com</a>.
+          <a href="https://www.jamsadr.com" target="_blank" rel="noopener noreferrer">jamsadr.com<span className="sr-only"> (opens in a new tab)</span></a>.
           The arbitration shall be conducted by a single neutral arbitrator. If the claim
           amount is $10,000 or less, the arbitration may be conducted by documents only
           (without a hearing) at your election. Arbitration may be conducted in person, by
@@ -179,7 +226,7 @@ export default function Terms() {
         </p>
 
         <p>
-          <strong>10.3 CLASS ACTION AND JURY TRIAL WAIVER.</strong>{' '}
+          <strong>13.3 CLASS ACTION AND JURY TRIAL WAIVER.</strong>{' '}
           <strong>
             YOU AND MANDIME EACH WAIVE ANY RIGHT TO A JURY TRIAL. YOU AND MANDIME EACH
             WAIVE ANY RIGHT TO PARTICIPATE IN A CLASS ACTION, CLASS ARBITRATION,
@@ -192,7 +239,7 @@ export default function Terms() {
         </p>
 
         <p>
-          <strong>10.4 Exceptions.</strong> The following claims are not subject to
+          <strong>13.4 Exceptions.</strong> The following claims are not subject to
           arbitration: (a) claims within the jurisdiction of a small claims court (so
           long as the matter remains in small claims court and is pursued on an individual
           basis only); (b) claims for injunctive or equitable relief to prevent actual or
@@ -202,9 +249,9 @@ export default function Terms() {
         </p>
 
         <p>
-          <strong>10.5 Opt-Out.</strong> You may opt out of the arbitration agreement in
-          this Section 10 by sending written notice to{' '}
-          <a href="mailto:contact@mandime.com">contact@mandime.com</a> with the subject
+          <strong>13.5 Opt-Out.</strong> You may opt out of the arbitration agreement in
+          this Section 13 by sending written notice to{' '}
+          <a href="mailto:info@mandime.com">info@mandime.com</a> with the subject
           line "Arbitration Opt-Out" <strong>within 30 days of first using the Site.</strong>{' '}
           Your opt-out notice must include your name, the email address you use to contact
           us, and a clear statement that you wish to opt out of arbitration. If you opt
@@ -214,28 +261,28 @@ export default function Terms() {
         </p>
 
         <p>
-          <strong>10.6 Severability.</strong> If the class action waiver in Section 10.3
+          <strong>13.6 Severability.</strong> If the class action waiver in Section 13.3
           is found unenforceable with respect to any claim or request for relief, then
           that specific claim or request for relief shall be severed from the arbitration
           and may be litigated in court, but only after all arbitrable claims are resolved
-          in arbitration. If any other portion of Section 10 is found unenforceable, that
-          portion shall be severed and the remainder of Section 10 shall continue in
+          in arbitration. If any other portion of Section 13 is found unenforceable, that
+          portion shall be severed and the remainder of Section 13 shall continue in
           full force and effect.
         </p>
 
-        {/* ── 11. Changes to Terms ── */}
-        <h2 style={h2}>11. Changes to These Terms</h2>
+        {/* ── 14. Changes to Terms ── */}
+        <h2 style={h2}>14. Changes to These Terms</h2>
         <p>
           We may update these Terms at any time. When we make material changes, we will
           update the "Last updated" date at the top of this page. Your continued use of
           the Site after the effective date of any changes constitutes acceptance of the
           revised Terms. If you do not agree to the revised Terms, stop using the Site.
-          Changes to the arbitration agreement in Section 10 will not apply to disputes
+          Changes to the arbitration agreement in Section 13 will not apply to disputes
           for which you provided notice before the effective date of the change.
         </p>
 
-        {/* ── 12. Miscellaneous ── */}
-        <h2 style={h2}>12. Miscellaneous</h2>
+        {/* ── 15. Miscellaneous ── */}
+        <h2 style={h2}>15. Miscellaneous</h2>
         <p>
           These Terms, together with our Privacy Policy, constitute the entire agreement
           between you and Mandime with respect to your use of the Site and supersede all
@@ -246,11 +293,11 @@ export default function Terms() {
           or transferred without our written consent.
         </p>
 
-        {/* ── 13. Contact ── */}
-        <h2 style={h2}>13. Contact</h2>
+        {/* ── 16. Contact ── */}
+        <h2 style={h2}>16. Contact</h2>
         <p>
           Questions about these Terms? Contact us at{' '}
-          <a href="mailto:contact@mandime.com">contact@mandime.com</a>.
+          <a href="mailto:info@mandime.com">info@mandime.com</a>.
         </p>
       </div>
     </div>

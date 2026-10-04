@@ -1,7 +1,14 @@
-import Script from 'next/script'
+import { Inter, Bebas_Neue } from 'next/font/google'
 import './globals.css'
 import { SITE_URL, SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 import { activeCategories } from '@/lib/categories'
+import SiteAnalytics from '@/app/components/SiteAnalytics'
+
+// Fonts are downloaded at build time and served from mandime.com. The old
+// stylesheet @import of fonts.googleapis.com sent every visitor's IP address
+// to Google on every page view.
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
+const bebas = Bebas_Neue({ subsets: ['latin'], weight: '400', display: 'swap', variable: '--font-bebas' })
 
 export const metadata = {
   title: { default: `${SITE_NAME} — Men's Lifestyle`, template: `%s — ${SITE_NAME}` },
@@ -42,69 +49,43 @@ const siteJsonLd = {
 export default function RootLayout({ children }) {
   const topics = activeCategories()
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${bebas.variable}`}>
       <head>
         <script type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
-        {/* Consent Mode v2 — must run before GA4 loads.
-            Defaults to denied; upgrades to granted for users who haven't
-            set GPC and haven't opted out via the privacy page. */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', {
-            analytics_storage: 'denied',
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            wait_for_update: 300
-          });
-          (function() {
-            var gpc = typeof navigator !== 'undefined' && navigator.globalPrivacyControl === true;
-            var optout = false;
-            try { optout = localStorage.getItem('mandime_analytics_optout') === '1'; } catch(e) {}
-            if (!gpc && !optout) {
-              gtag('consent', 'update', { analytics_storage: 'granted' });
-            }
-          })();
-        `}} />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-T7587FSGNS"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`gtag('js', new Date()); gtag('config', 'G-T7587FSGNS', { anonymize_ip: true });`}
-        </Script>
       </head>
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
         <header className="site-header">
           <a href="/" className="logo">
-            <img src="/logo.png" alt="Mandime" className="brand-logo" />
+            <img src="/logo.png" alt="Mandime home" className="brand-logo" />
           </a>
-          <nav className="site-nav">
+          <nav className="site-nav" aria-label="Main">
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/contact">Contact</a>
           </nav>
         </header>
-        <main className="site-main">{children}</main>
+        <main id="main" className="site-main" tabIndex={-1}>{children}</main>
         <footer className="site-footer">
           {topics.length > 0 && (
-            <nav className="footer-topics" aria-label="Topics">
+            <nav className="footer-topics" aria-label="Browse topics">
               {topics.map((c) => (
                 <a key={c.slug} href={`/tag/${c.slug}`}>{c.label}</a>
               ))}
             </nav>
           )}
           <span>&copy; {new Date().getFullYear()} Mandime</span>
-          <span className="footer-links">
+          <nav className="footer-links" aria-label="Legal">
             <a href="/terms">Terms</a>
             <a href="/privacy">Privacy</a>
-            <a href="/privacy#opt-out">Do Not Sell or Share My Personal Information</a>
-          </span>
+            <a href="/accessibility">Accessibility</a>
+            <a href="/privacy#choices">Your Privacy Choices</a>
+          </nav>
         </footer>
+        <SiteAnalytics />
       </body>
     </html>
   )

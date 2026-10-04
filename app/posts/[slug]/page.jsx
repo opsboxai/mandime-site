@@ -138,7 +138,7 @@ export default function PostPage({ params }) {
       {ytId ? (
         <div className="video-embed">
           <iframe
-            src={`https://www.youtube.com/embed/${ytId}`}
+            src={`https://www.youtube-nocookie.com/embed/${ytId}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={frontmatter.title}
@@ -154,7 +154,7 @@ export default function PostPage({ params }) {
       </div>
 
       {cats.length > 0 && (
-        <nav className="post-tags" aria-label="Topics">
+        <nav className="post-tags" aria-label="Topics for this story">
           {cats.map((c) => (
             <Link key={c.slug} href={`/tag/${c.slug}`} className="post-tag">{c.label}</Link>
           ))}
@@ -163,15 +163,16 @@ export default function PostPage({ params }) {
 
       {frontmatter.source_url && (
         <p className="source-attribution">
-          Source: <a href={frontmatter.source_url} target="_blank" rel="noreferrer">
+          Source: <a href={frontmatter.source_url} target="_blank" rel="noopener noreferrer">
             {isVideo ? 'Watch on YouTube' : 'View original'} &rarr;
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </p>
       )}
 
       {related.length > 0 && (
-        <aside className="related-posts">
-          <h2>Related</h2>
+        <section className="related-posts" aria-labelledby="related-heading">
+          <h2 id="related-heading">Related</h2>
           <ul>
             {related.map((r) => (
               <li key={r.slug}>
@@ -179,7 +180,7 @@ export default function PostPage({ params }) {
               </li>
             ))}
           </ul>
-        </aside>
+        </section>
       )}
     </article>
   )

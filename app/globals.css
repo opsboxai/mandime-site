@@ -1,5 +1,5 @@
 /* Mandime — clean, modern editorial. Light theme, magazine aesthetic. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap');
+/* Fonts: Inter + Bebas Neue are self-hosted by next/font (see app/layout.jsx). */
 
 :root {
   --bg: #ffffff;
@@ -8,7 +8,7 @@
   --border: #e8e8e6;
   --text: #1a1a1a;
   --text-secondary: #555555;
-  --text-muted: #999999;
+  --text-muted: #6b6b6b;   /* was #999 (2.85:1, fails WCAG AA); now 5.3:1 */
   --accent: #1a1a1a;
 }
 
@@ -17,7 +17,7 @@
 html, body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
 }
@@ -80,11 +80,13 @@ a { color: inherit; text-decoration: none; }
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .footer-links a {
   color: var(--text-muted);
   font-size: 12px;
+  padding: 6px 0;
   transition: color 0.15s;
 }
 .footer-links a:hover { color: var(--text); }
@@ -102,6 +104,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-muted);
   font-size: 12px;
   letter-spacing: 0.5px;
+  padding: 6px 0;
   transition: color 0.15s;
 }
 .footer-topics a:hover { color: var(--text); }
@@ -235,7 +238,7 @@ a { color: inherit; text-decoration: none; }
 
 .post-card-overlay h2 {
   color: #fff;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 1.1;
@@ -314,7 +317,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .post-page h1 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   font-size: 66px;
   font-weight: 400;
   line-height: 1.0;
@@ -357,7 +360,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-secondary);
 }
 .post-body p { margin: 0 0 26px; }
-.post-body a { color: var(--text); text-decoration: underline; }
+.post-body a { color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
 
 /* Lead paragraph — first para is slightly larger and darker */
 .post-body > p:first-of-type {
@@ -369,7 +372,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Drop cap on the first letter */
 .post-body > p:first-of-type::first-letter {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   float: left;
   font-size: 82px;
   line-height: 0.75;
@@ -380,7 +383,7 @@ a { color: inherit; text-decoration: none; }
 
 /* MDX headings */
 .post-body h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   font-size: 38px;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -784,7 +787,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .reel-placeholder h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   font-size: 32px;
   letter-spacing: 0.04em;
 }
@@ -815,13 +818,13 @@ a { color: inherit; text-decoration: none; }
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
   display: block;
   margin-bottom: 6px;
 }
 
 .reel-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
   font-size: 26px;
   font-weight: 400;
   line-height: 1.15;
@@ -836,7 +839,7 @@ a { color: inherit; text-decoration: none; }
 .reel-excerpt {
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.88);
   margin: 0 0 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -880,3 +883,101 @@ a { color: inherit; text-decoration: none; }
   .contact-submit { width: 100%; }
   .about-page h1 { font-size: 28px; }
 }
+
+/* ---------- Accessibility ---------- */
+/* Visually hidden but read by screen readers */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
+
+/* Skip link: first thing a keyboard user reaches; visible only on focus */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 1000;
+  padding: 10px 16px;
+  background: var(--text);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.skip-link:focus { top: 16px; }
+.site-main:focus { outline: none; }
+
+/* Visible keyboard focus everywhere (mouse clicks don't show it) */
+:where(a, button, input, textarea, select, iframe, [tabindex]):focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+.reel-info a:focus-visible,
+.post-card-overlay:focus-visible,
+.view-toggle:focus-visible {
+  outline-color: #fff;
+}
+
+.contact-note {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.contact-note a { text-decoration: underline; }
+
+/* Respect the OS "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Legal pages ---------- */
+.privacy-choices {
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.privacy-choices-state { margin: 0 0 8px; font-weight: 600; font-size: 15px; color: var(--text); }
+.privacy-choices-help { margin: 0 0 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.privacy-choices-button {
+  padding: 10px 20px;
+  background: var(--text);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.privacy-choices-button:hover { opacity: 0.85; }
+
+.legal-summary {
+  margin: 0 0 32px;
+  padding: 20px 24px;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--text);
+  border-radius: 4px;
+}
+.legal-summary ul { margin: 8px 0 0 20px; line-height: 1.9; }
+
+.legal-table-wrap { overflow-x: auto; margin: 12px 0 24px; }
+.legal-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5; }
+.legal-table th, .legal-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.legal-table th { font-weight: 600; color: var(--text); background: var(--bg-alt); }

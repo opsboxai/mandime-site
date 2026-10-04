@@ -11,9 +11,21 @@ function extractYouTubeId(url) {
   return m ? m[1] : null
 }
 
+function prefersReducedMotion() {
+  try {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  } catch {
+    return false
+  }
+}
+
 function ReelSlide({ post, isActive }) {
   const iframeRef = useRef(null)
   const [playerReady, setPlayerReady] = useState(false)
+  // Visitors who ask their OS to reduce motion get a tap-to-play player
+  // instead of autoplaying video (WCAG 2.2.2 / 2.3.3).
+  const [reduceMotion] = useState(prefersReducedMotion)
+  const autoplay = isActive && !reduceMotion
   const fm = post.frontmatter
   const isVideo = fm.media_type === 'video'
   const ytId = isVideo ? extractYouTubeId(fm.source_url) : null
@@ -51,14 +63,14 @@ function ReelSlide({ post, isActive }) {
     const iframe = iframeRef.current
     try {
       iframe.contentWindow?.postMessage(
-        JSON.stringify({ event: 'command', func: isActive ? 'playVideo' : 'pauseVideo', args: [] }),
+        JSON.stringify({ event: 'command', func: autoplay ? 'playVideo' : 'pauseVideo', args: [] }),
         '*'
       )
     } catch (_) {}
     if (!isActive) return
     const timer = setTimeout(() => setPlayerReady(true), 1500)
     return () => clearTimeout(timer)
-  }, [isActive, ytId])
+  }, [isActive, autoplay, ytId])
 
   const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null
 
@@ -75,7 +87,7 @@ function ReelSlide({ post, isActive }) {
           />
           <iframe
             ref={iframeRef}
-            src={`https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=${isActive ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${ytId}?enablejsapi=1&autoplay=${autoplay ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&playsinline=1&controls=1&modestbranding=1&rel=0`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={fm.title}

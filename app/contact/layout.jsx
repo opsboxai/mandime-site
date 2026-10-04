@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Contact — Mandime',
+  title: 'Contact',
   description: 'Reach out for collaboration ideas, advertising, or just to say hello.',
   alternates: { canonical: '/contact' },
 }
