@@ -52,8 +52,8 @@ export default function Accessibility() {
             from the player's settings for most videos. Each video story also has a written summary.
           </li>
           <li>
-            <strong>Older image descriptions.</strong> A small number of older stories have no image
-            description. We are adding them.
+            <strong>Image descriptions.</strong> Each story image gets a text description when the
+            story is published. If one is missing or doesn't match the picture, let us know.
           </li>
           <li>
             <strong>Phone feed.</strong> On phones, the home page opens as a swipeable video feed that
